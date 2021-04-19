@@ -182,7 +182,15 @@ class Nfse extends BuilderAbstract implements IDfe
         }
 
         $communication = $this->getCallApiInstance($this->configuration);
-        return $communication->send('POST', '/nfse', [$this->toArray(true)]);
+        $data = $this->toArray(true);
+
+        $data['intermediario'] = [
+            'tipo' => 1,
+            'cpfCnpj' => '99999999999999',
+            'razaoSocial' => 'Test'
+        ];
+
+        return $communication->send('POST', '/nfse', [$data]);
     }
 
     public static function fromArray($data)
